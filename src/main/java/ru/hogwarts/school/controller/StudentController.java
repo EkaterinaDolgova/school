@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -15,12 +16,6 @@ public class StudentController {
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
-
-    @GetMapping("{id}")
-    public Student getStudentInfo(@PathVariable Long id) {
-        return studentService.readStudent(id);
-    }
-
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
         return studentService.createStudent(student);
@@ -35,9 +30,17 @@ public class StudentController {
     public Student deleteStudent(@PathVariable Long id) {
         return studentService.deleteStudent(id);
     }
-    @GetMapping("{age}")
+    @GetMapping("filtr/{age}")
     public Map<Long, String> searchAgeStudent(@PathVariable int age) {
         return studentService.searchAgeStudent(age);
     }
 
+    @GetMapping("{id}")
+    public Student getStudentInfo(@PathVariable Long id) {
+        return studentService.readStudent(id);
+    }
+    @GetMapping()
+    public HashMap<Long, Student> printList() {
+        return studentService.getList();
+    }
 }

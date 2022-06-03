@@ -34,7 +34,7 @@ public class FacultyController {
     public Faculty deleteFaculty(@PathVariable Long id) {
         return facultyService.deleteFaculty(id);
     }
-    @GetMapping("{color}")
+    @GetMapping("filtr/{color}")
     public Map<Long, String> searchColorFaculty(@PathVariable String color) {
         return facultyService.searchColorFaculty(color);
     }

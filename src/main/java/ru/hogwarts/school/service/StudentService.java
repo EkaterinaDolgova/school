@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.model.Student;
 
 import java.util.HashMap;
@@ -19,7 +20,10 @@ public class StudentService {
     }
 
     public Student readStudent(long id) {
-        return students.get(id);
+        if (students.containsKey(id)) {
+            return students.get(id);
+        }
+        throw new StudentNotFoundException("Под данным номером нет сотрудника");
     }
 
     public Student editStudent(Student student) {
@@ -36,6 +40,10 @@ public class StudentService {
                 .stream().filter(x->x.getValue().getAge() == age)
                 .collect(Collectors.toMap(x -> x.getKey(), x -> x.toString()));
         return filteredMap;
+    }
+
+    public HashMap<Long, Student> getList() {
+        return students;
     }
 
 
