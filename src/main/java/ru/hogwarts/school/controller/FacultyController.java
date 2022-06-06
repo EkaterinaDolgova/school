@@ -1,10 +1,9 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.FacultyService;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("faculty")
@@ -31,12 +30,10 @@ public class FacultyController {
     }
 
     @DeleteMapping("{userId}")
-    public Faculty deleteFaculty(@PathVariable Long id) {
-        return facultyService.deleteFaculty(id);
-    }
+    public ResponseEntity deleteFaculty(@PathVariable Long id){return ResponseEntity.ok().build();}
 
-    @GetMapping("filtr/{color}")
+   /* @GetMapping("filtr/{color}")
     public Map<Long, String> searchColorFaculty(@PathVariable String color) {
         return facultyService.searchColorFaculty(color);
-    }
+    }*/
 }
