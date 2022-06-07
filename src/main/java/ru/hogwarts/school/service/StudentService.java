@@ -21,22 +21,23 @@ public class StudentService {
     public Student readStudent(long id) {
         return studentRepository.findById(id).get();
     }
-        public Student editStudent (Student student){
-            return studentRepository.save(student);
-        }
 
-        public void deleteStudent ( long id){
-            studentRepository.deleteById(id);
-        }
+    public Student editStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+    public void deleteStudent(long id) {
+        studentRepository.deleteById(id);
+    }
 
     /*    public Map<Long, String> searchAgeStudent ( int age){
             Map<Long, String> filteredMap = students.entrySet().stream().filter(x -> x.getValue().getAge() == age).collect(Collectors.toMap(x -> x.getKey(), x -> x.toString()));
             return filteredMap;
         }*/
 
-        public Collection<Student> getList () {
-            return studentRepository.findAll();
-        }
-
-
+    public Collection<Student> getList() {
+        return studentRepository.findAll();
     }
+
+
+}
