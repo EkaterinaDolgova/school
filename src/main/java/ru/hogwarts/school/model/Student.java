@@ -15,9 +15,6 @@ public class Student {
 
 
     public Student() {
-        this.id = id;
-        this.name = name;
-        this.age = age;
     }
 
 
