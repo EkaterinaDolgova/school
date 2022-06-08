@@ -2,7 +2,10 @@ package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
+
+import java.util.Collection;
 
 @Service
 public class FacultyService {
@@ -28,10 +31,18 @@ public class FacultyService {
         facultyRepository.deleteById(id);
     }
 
-   /* public Map<Long, String> searchColorFaculty(String color) {
-        Map<Long, String> filteredMap = facults.entrySet()
-                .stream().filter(x->x.getValue().getColor().equals( color))
-                .collect(Collectors.toMap(x -> x.getKey(), x -> x.toString()));
-        return filteredMap;
-    }*/
+    public Collection<Faculty> searchColorFaculty(String color) {
+        if (color!=null && !color.isBlank()) {
+            return facultyRepository.findByNameIgnoreCase(color);
+        }return facultyRepository.findAll();
+    }
+    public Collection<Faculty> getList() {
+        return facultyRepository.findAll();
+    }
+
+    public Collection<Student> getStudents(long id) {
+        return facultyRepository.findById(id).get().getStudents();
+    }
+
+
 }
