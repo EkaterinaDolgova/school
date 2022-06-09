@@ -43,6 +43,6 @@ public class StudentService {
     }
 
     public Faculty facultyStudent(Long id) {
-        return studentRepository.findById(id).get().getFaculty();
+        return studentRepository.findById(id).orElseThrow().getFaculty();
     }
 }
