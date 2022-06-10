@@ -32,21 +32,19 @@ public class FacultyService {
         facultyRepository.deleteById(id);
     }
 
-    public Collection<Faculty> searchColorFaculty(String color, String name) {
-        if (color!=null && !color.isBlank()) {
-            return facultyRepository.findByNameIgnoreCase(color);
-        }
-        if (name!=null && !name.isBlank()) {
-            return facultyRepository.findByNameIgnoreCase(name);
+    public Collection<Faculty> searchColorFaculty(String name, String color) {
+        if (name != null && !name.isBlank()) {
+            return facultyRepository.findByColorOrNameIgnoreCase(name, color);
         }
         return facultyRepository.findAll();
     }
+
     public Collection<Faculty> getList() {
         return facultyRepository.findAll();
     }
 
-    public Collection<Student> getStudents(long id) {
-        return facultyRepository.findById(id).orElseThrow().getStudents();
+    public Collection<Student> getStudents(long id) throws Exception {
+        return facultyRepository.findById(id).orElseThrow(() -> new Exception("Факультет не найден")).getStudents();
     }
 
 

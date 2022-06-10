@@ -47,7 +47,7 @@ public class StudentController {
     }
 
     @GetMapping("/faculty/{id}")
-    public Faculty getFacultyStudent(@PathVariable Long id) {
+    public Faculty getFacultyStudent(@PathVariable Long id) throws Exception {
         return studentService.facultyStudent(id);
     }
 }

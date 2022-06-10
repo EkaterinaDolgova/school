@@ -38,11 +38,8 @@ public class FacultyController {
     }
 
     @GetMapping("/filtr")
-    public Collection<Faculty> searchFaculty(@RequestParam String color,@RequestParam String name) {
-        if (color != null && !color.isBlank()) {
-            return facultyService.searchColorFaculty(color,name);
-        }
-        return facultyService.getList();
+    public Collection<Faculty> searchFaculty(@RequestParam String name,@RequestParam String color) {
+            return facultyService.searchColorFaculty(name, color);
     }
 
     @GetMapping
@@ -51,7 +48,7 @@ public class FacultyController {
     }
 
     @GetMapping("/students/{id}")
-    public Collection<Student> getStudentsFaculty(@PathVariable Long id) {
+    public Collection<Student> getStudentsFaculty(@PathVariable Long id) throws Exception {
         return facultyService.getStudents(id);
     }
 }

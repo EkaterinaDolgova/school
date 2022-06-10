@@ -42,7 +42,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Faculty facultyStudent(Long id) {
-        return studentRepository.findById(id).orElseThrow().getFaculty();
+    public Faculty facultyStudent(Long id) throws Exception {
+        return studentRepository.findById(id).orElseThrow(() -> new Exception("Студент не найден")).getFaculty();
     }
 }
