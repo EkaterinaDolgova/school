@@ -38,8 +38,8 @@ public class FacultyController {
     }
 
     @GetMapping("/filtr")
-    public Collection<Faculty> searchFaculty(@RequestParam String name,@RequestParam String color) {
-            return facultyService.searchColorFaculty(name, color);
+    public Collection<Faculty> searchFaculty(@RequestParam String name) {
+            return facultyService.searchColorFaculty(name,name);
     }
 
     @GetMapping
