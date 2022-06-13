@@ -5,9 +5,11 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Service
+
 public class StudentService {
     private final StudentRepository studentRepository;
 
