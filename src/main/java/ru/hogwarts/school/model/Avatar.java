@@ -59,6 +59,9 @@ public class Avatar {
     public void setData(byte[] data) {
         this.data = data;
     }
+    public void setStudent(Long id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
