@@ -21,13 +21,11 @@ public class AvatarService {
     @Value("${path.to.avatars.folder}")
     private String avatarsDir;
 
-    private final AvatarService avatarService;
     private final AvatarRepository avatarRepository;
     private final StudentRepository studentRepository;
 
 
-    public AvatarService(AvatarService avatarService, AvatarRepository avatarRepository, StudentRepository studentRepository) {
-        this.avatarService = avatarService;
+    public AvatarService(AvatarRepository avatarRepository, StudentRepository studentRepository) {
         this.avatarRepository = avatarRepository;
         this.studentRepository = studentRepository;
     }
@@ -45,7 +43,7 @@ public class AvatarService {
         ) {
             bis.transferTo(bos);
         }
-        Avatar avatar = findAvatar(studentId);
+        Avatar avatar = findStudentAvatar(studentId);
         avatar.setStudent(studentId);
         avatar.setFilePath(filePath.toString());
         avatar.setFileSize(avatarFile.getSize());
@@ -58,7 +56,9 @@ public class AvatarService {
     private String getExtensions(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
-    public Avatar findAvatar(long id) {
-        return avatarRepository.findById(id).get();
+    public Avatar findStudentAvatar(long avatarId) {
+
+        return avatarRepository.findByStudentId(avatarId).orElse(new Avatar());
+       // return studentRepository.findById(avatarId).orElseThrow().getAvatar();
     }
 }

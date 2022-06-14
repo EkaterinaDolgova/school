@@ -13,6 +13,9 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
+    @OneToOne
+   // @JoinColumn(name = "avatar_id")
+    private Avatar avatar;
 
     public Student() {
 
@@ -57,5 +60,9 @@ public class Student {
 
     public Faculty getFaculty() {
         return faculty;
+    }
+
+    public Avatar getAvatar() {
+        return avatar;
     }
 }

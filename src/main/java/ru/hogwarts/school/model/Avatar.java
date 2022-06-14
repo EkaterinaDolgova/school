@@ -14,8 +14,10 @@ public class Avatar {
     @Lob
     private byte[] data;
 
-    @OneToOne
-     Student student;
+  /*  @OneToOne(mappedBy = "avatar")
+     Student student;*/
+  @OneToOne
+  private Student student;
 
     public Avatar() {
     }
