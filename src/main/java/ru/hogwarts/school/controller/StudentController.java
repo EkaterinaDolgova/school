@@ -9,7 +9,7 @@ import ru.hogwarts.school.service.StudentService;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("student")
+@RequestMapping("/student")
 public class StudentController {
     private final StudentService studentService;
     public StudentController(StudentService studentService) {
@@ -37,7 +37,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public Student getStudentInfo(@PathVariable Long id) {
+    public String getStudentInfo(@PathVariable Long id) throws Exception {
         return studentService.readStudent(id);
     }
 

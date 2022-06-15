@@ -1,12 +1,12 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Service
@@ -22,8 +22,8 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student readStudent(long id) {
-        return studentRepository.findById(id).get();
+    public String readStudent(long id) throws Exception {
+        return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Студент не найден")).toString();
     }
 
     public Student editStudent(Student student) {
@@ -46,9 +46,9 @@ public class StudentService {
     }
 
     public Faculty facultyStudent(Long id) throws Exception {
-        return studentRepository.findById(id).orElseThrow(() -> new Exception("Студент не найден")).getFaculty();
+        return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Студент не найден")).getFaculty();
     }
     public Avatar avatarStudent(Long id) throws Exception {
-        return studentRepository.findById(id).orElseThrow(() -> new Exception("Студент не найден")).getAvatar();
+        return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Студент не найден")).getAvatar();
     }
 }

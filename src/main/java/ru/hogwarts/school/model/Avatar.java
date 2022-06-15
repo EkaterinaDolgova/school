@@ -14,13 +14,8 @@ public class Avatar {
     @Lob
     private byte[] data;
 
-  /*  @OneToOne(mappedBy = "avatar")
-     Student student;*/
-  @OneToOne
-  private Student student;
-
-    public Avatar() {
-    }
+    @OneToOne
+    private Student student;
 
     public Long getId() {
         return id;
@@ -61,9 +56,6 @@ public class Avatar {
     public void setData(byte[] data) {
         this.data = data;
     }
-    public void setStudent(Long id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {
@@ -85,5 +77,9 @@ public class Avatar {
     @Override
     public int hashCode() {
         return Objects.hash(id, filePath, fileSize);
+    }
+
+    public void setStudent(Long studentId) {
+
     }
 }

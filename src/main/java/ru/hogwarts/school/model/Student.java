@@ -3,6 +3,7 @@ package ru.hogwarts.school.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+
 @Entity
 public class Student {
     @Id
@@ -14,12 +15,12 @@ public class Student {
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
     @OneToOne
-   // @JoinColumn(name = "avatar_id")
     private Avatar avatar;
 
     public Student() {
 
     }
+
     public String getName() {
         return name;
     }
@@ -65,4 +66,5 @@ public class Student {
     public Avatar getAvatar() {
         return avatar;
     }
+
 }
