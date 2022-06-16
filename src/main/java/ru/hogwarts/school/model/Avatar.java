@@ -1,6 +1,7 @@
 package ru.hogwarts.school.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +17,7 @@ public class Avatar {
 
     @OneToOne
     private Student student;
+  //  private Collection<Student> students;
 
     public Long getId() {
         return id;
@@ -79,7 +81,12 @@ public class Avatar {
         return Objects.hash(id, filePath, fileSize);
     }
 
-    public void setStudent(Long studentId) {
-
+    public Student getStudent() {
+        return student;
     }
+
+    public void setStudent(Student student) {
+        this.student= student;
+    }
+
 }

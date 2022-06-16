@@ -28,7 +28,7 @@ public class AvatarService {
     }
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws Exception {
-        Student student = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException("Студент не найден"));
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException("Аватар не найден"));
         Path filePath = Path.of(avatarsDir, student + "." + getExtensions(avatarFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);
@@ -41,7 +41,8 @@ public class AvatarService {
             bis.transferTo(bos);
         }
         Avatar avatar = findStudentAvatar(studentId);
-        avatar.setStudent(studentId);
+        //avatar.setStudent(studentRepository.findById(studentId).orElseThrow(()->new StudentNotFoundException("Студент не найден")));
+        avatar.setStudent(student);
         avatar.setFilePath(filePath.toString());
         avatar.setFileSize(avatarFile.getSize());
         avatar.setMediaType(avatarFile.getContentType());
@@ -49,12 +50,12 @@ public class AvatarService {
         avatarRepository.save(avatar);
     }
 
-
     private String getExtensions(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
-    public Avatar findStudentAvatar(long avatarId) {
-        return avatarRepository.findByStudentId(avatarId).orElseThrow(() -> new StudentNotFoundException("Студент не найден"));
+    public Avatar findStudentAvatar(long studentId) {
+        return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
+        //.orElseThrow(() -> new StudentNotFoundException("Студент не найден"));
     }
 }
