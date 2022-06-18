@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
@@ -26,9 +27,11 @@ public class StudentController {
         return studentService.editStudent(student);
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity deleteStudent(@PathVariable Long id) {
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity deleteStudent(@PathVariable Long userId) {
+        studentService.deleteStudent(userId);
+       // return ResponseEntity.ok().build(HttpStatus.OK);
+        return ResponseEntity.ok().body(HttpStatus.OK);
     }
 
     @GetMapping("/filtr")

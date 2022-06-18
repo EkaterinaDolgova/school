@@ -30,8 +30,8 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public void deleteStudent(long id) {
-        studentRepository.deleteById(id);
+    public void deleteStudent(long userId) {
+        studentRepository.deleteById(userId);
     }
 
     public Collection<Student> searchAgeStudent(int min, int max) {
