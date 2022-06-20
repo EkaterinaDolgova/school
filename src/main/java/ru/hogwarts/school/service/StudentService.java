@@ -8,6 +8,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 
@@ -50,5 +51,15 @@ public class StudentService {
     }
     public Avatar avatarStudent(Long id) throws Exception {
         return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Студент не найден")).getAvatar();
+    }
+
+    public Integer sumStudents() {
+       return studentRepository.sumStudents();
+    }
+    public Integer avgStudents() {
+        return studentRepository.avgStudents();
+    }
+    public List<Student> fiveStudents() {
+        return studentRepository.fiveStudents();
     }
 }
