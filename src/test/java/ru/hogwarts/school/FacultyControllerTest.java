@@ -17,14 +17,14 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.hogwarts.school.controller.FacultyController;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.delete;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -110,20 +110,22 @@ public class FacultyControllerTest {
 
     @Test
     public void getStudentsFacultyTest() throws Exception {
-        Long id = 5L;
-        String name = "Bob";
-
-        JSONObject facultyObject = new JSONObject();
-        facultyObject.put("name", name);
-
         Faculty faculty = new Faculty();
-        faculty.setId(id);
-        faculty.setName(name);
+        faculty.setId(1L);
+        faculty.setName("faculty");
+        Student student = new Student();
+        student.setId(1L);
+        student.setName("Mark");
+        faculty.getStudents(List.of(student));
+
+
         when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
         when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
-        mockMvc.perform(get("/faculty/students/5")
+        mockMvc.perform(get("/faculty/students/1")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0]", notNullValue()))
+                .andExpect(jsonPath("$[0].name").value("Mark"));
     }
 
     @Test
