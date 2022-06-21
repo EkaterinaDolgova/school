@@ -76,7 +76,7 @@ public class Faculty {
         return students;
     }
 
-    public <E> Collection<Student> setStudents(List<Student> students) {
-        return students;
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
     }
 }
