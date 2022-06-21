@@ -25,6 +25,7 @@ public class Faculty {
 
     public Faculty() {
     }
+
     public Long getId() {
         return id;
     }
@@ -71,11 +72,11 @@ public class Faculty {
         return Objects.hash(id, name, color);
     }
 
-
     public Collection<Student> getStudents() {
         return students;
     }
 
-    public <E> Collection<Student> getStudents(List<E> student) {return students;
+    public <E> Collection<Student> setStudents(List<Student> students) {
+        return students;
     }
 }

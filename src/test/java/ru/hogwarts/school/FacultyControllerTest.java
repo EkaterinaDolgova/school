@@ -116,7 +116,7 @@ public class FacultyControllerTest {
         Student student = new Student();
         student.setId(1L);
         student.setName("Mark");
-        faculty.getStudents(List.of(student));
+        faculty.setStudents(List.of(student));
 
 
         when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
