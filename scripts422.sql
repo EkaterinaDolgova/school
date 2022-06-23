@@ -1,13 +1,13 @@
-CREATE TABLE lessons (
+CREATE TABLE cars (
                          id bigint unique ,
                          name varchar primary key,
-                         student_id bigint REFERENCES student (id)
+                         people_id bigint REFERENCES cars (id)
 );
 
-CREATE TABLE teacher (
+CREATE TABLE peoples (
                          id bigint unique ,
                          name varchar primary key,
-                         lessons_id bigint REFERENCES lessons (id)
+                         cars_id bigint REFERENCES peoples (id)
 );
 
 
