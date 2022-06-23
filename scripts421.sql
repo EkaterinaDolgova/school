@@ -1,11 +1,11 @@
 ALTER TABLE student
-    ADD CONSTRAINT age_constraint CHECK (age > 16);
+    ADD CONSTRAINT age_constraint CHECK (age >= 16);
 
 ALTER TABLE student
-    ADD PRIMARY KEY (id);
+    ADD  UNIQUE  (name);
 
 ALTER TABLE student
-    ADD CONSTRAINT name_unique UNIQUE (name);
+ALTER COLUMN name SET NOT NULL;
 
 ALTER TABLE faculty
     ADD CONSTRAINT login_pass_unique UNIQUE (color, name);
