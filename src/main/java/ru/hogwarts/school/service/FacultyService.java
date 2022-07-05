@@ -9,6 +9,11 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class FacultyService {
@@ -57,6 +62,25 @@ public class FacultyService {
     public Collection<Student> getStudents(long id) throws Exception {
         logger.info("Info getStudents");
         return facultyRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Факультет не найден")).getStudents();
+    }
+    public String longNameFacultyStream(){
+
+        logger.info("Info longNameFacultyStream");
+
+        String longNameFaculty = facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length)).get();
+
+        return longNameFaculty;
+    }
+
+    public Integer intStream(){
+
+        logger.info("Info intStream");
+
+        int sum = Stream.iterate(1, a -> a +1) .limit(1_000_000) .reduce(0, (a, b) -> a + b );
+
+        return sum;
     }
 
 
