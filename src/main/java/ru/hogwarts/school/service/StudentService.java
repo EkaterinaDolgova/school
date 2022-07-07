@@ -11,9 +11,8 @@ import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 
@@ -64,6 +63,7 @@ public class StudentService {
         logger.info("Info facultyStudent");
         return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Студент не найден")).getFaculty();
     }
+
     public Avatar avatarStudent(Long id) throws Exception {
         logger.info("Info avatarStudent");
         return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Студент не найден")).getAvatar();
@@ -73,17 +73,19 @@ public class StudentService {
         logger.info("Info sumStudents");
         return studentRepository.sumStudents();
     }
+
     public Integer avgStudents() {
 
         logger.info("Info avgStudents");
         return studentRepository.avgStudents();
     }
+
     public List<Student> fiveStudents() {
         logger.info("Info fiveStudents");
         return studentRepository.fiveStudents();
     }
 
-    public double avgStudentsStream(){
+    public double avgStudentsStream() {
 
         logger.info("Info avgStudentsStream");
         double avgStudent = studentRepository.findAll().stream()
@@ -91,16 +93,23 @@ public class StudentService {
                 .mapToInt(Student::getAge).average().getAsDouble();
         return avgStudent;
     }
-    public List<String> nameStudentsStream(){
+
+    public List<String> nameStudentsStream() {
 
         logger.info("Info nameStudentsStream");
 
-       List<String> nameStudent = studentRepository.findAll().stream()
-               .map(Student::getName)
-               .map(String::toUpperCase)
-               .filter(s -> s.startsWith("Г"))
-               .sorted()
-               .collect(Collectors.toList());
+        List<String> nameStudent = studentRepository.findAll().stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(s -> s.startsWith("Г"))
+                .sorted()
+                .collect(Collectors.toList());
         return nameStudent;
     }
+
+    public Stream<Student> getListP() {
+        Stream<Student> listStudent= studentRepository.findAll().stream();
+       return listStudent;
+    }
+
 }

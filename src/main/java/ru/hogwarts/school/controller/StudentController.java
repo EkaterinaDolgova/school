@@ -9,11 +9,13 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
     private final StudentService studentService;
+
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -31,7 +33,7 @@ public class StudentController {
     @DeleteMapping("/delete/{userId}")
     public ResponseEntity deleteStudent(@PathVariable Long userId) {
         studentService.deleteStudent(userId);
-       // return ResponseEntity.ok().build(HttpStatus.OK);
+        // return ResponseEntity.ok().build(HttpStatus.OK);
         return ResponseEntity.ok().body(HttpStatus.OK);
     }
 
@@ -54,6 +56,7 @@ public class StudentController {
     public Faculty getFacultyStudent(@PathVariable Long id) throws Exception {
         return studentService.facultyStudent(id);
     }
+
     @GetMapping("/sumSudents")
     public Integer getSumStudents() throws Exception {
         return studentService.sumStudents();
@@ -63,6 +66,7 @@ public class StudentController {
     public Integer getAvgStudents() throws Exception {
         return studentService.avgStudents();
     }
+
     @GetMapping("/fiveSudents")
     public List<Student> getFiveStudents() throws Exception {
         return studentService.fiveStudents();
@@ -72,8 +76,33 @@ public class StudentController {
     public Double getAvgStudentsStream() throws Exception {
         return studentService.avgStudentsStream();
     }
+
     @GetMapping("/nameStudentsStream")
-    public List<String>  getNameStudentsStream() throws Exception {
+    public List<String> getNameStudentsStream() throws Exception {
         return studentService.nameStudentsStream();
     }
+
+
+    @GetMapping("/getListP")
+    public void getListP() throws Exception {
+        System.out.println(studentService.getListP().skip(0).limit(2).collect(Collectors.toList()));
+        new Thread(() -> {
+            System.out.println(studentService.getListP().skip(2).limit(2).collect(Collectors.toList()));
+        }).start();
+        new Thread(() -> {
+            System.out.println(studentService.getListP().skip(4).limit(2).collect(Collectors.toList()));
+        }).start();
+    }
+
+    @GetMapping("/getListP1")
+    public synchronized void getListP1() throws Exception {
+        System.out.println(studentService.getListP().skip(0).limit(2).collect(Collectors.toList()));
+        new Thread(() -> {
+            System.out.println(studentService.getListP().skip(2).limit(2).collect(Collectors.toList()));
+        }).start();
+        new Thread(() -> {
+            System.out.println(studentService.getListP().skip(4).limit(2).collect(Collectors.toList()));
+        }).start();
+    }
+
 }
