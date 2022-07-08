@@ -118,24 +118,16 @@ public class StudentService {
     }
 
     public void getListP1() throws Exception {
-       new Thread(() -> {
-           try {
-               getListP1S();
-           } catch (Exception e) {
-               throw new RuntimeException(e);
-           }
-       }).start();
-    }
-
-    public synchronized void getListP1S() throws Exception {
         System.out.println(studentRepository.findAll().stream().skip(0).limit(2).collect(Collectors.toList()));
         new Thread(() -> {
-            System.out.println(studentRepository.findAll().stream().skip(2).limit(2).collect(Collectors.toList()));
+            getListP1S(studentRepository.findAll().stream().skip(2).limit(2).collect(Collectors.toList()));
         }).start();
         new Thread(() -> {
-            System.out.println(studentRepository.findAll().stream().skip(4).limit(2).collect(Collectors.toList()));
+            getListP1S(studentRepository.findAll().stream().skip(4).limit(2).collect(Collectors.toList()));
         }).start();
     }
 
-
+    private synchronized void getListP1S(List<Student> students) {
+        System.out.println(students);
+    }
 }
