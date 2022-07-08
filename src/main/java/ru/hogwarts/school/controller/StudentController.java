@@ -85,12 +85,12 @@ public class StudentController {
 
     @GetMapping("/getListP")
     public void getListP() throws Exception {
-        studentService.getListP_();
+        studentService.getListP();
     }
 
     @GetMapping("/getListP1")
-    public synchronized void getListP1() throws Exception {
-        studentService.getListP_s();
+    public void getListP1() throws Exception {
+        studentService.getListP1();
     }
 
 }
