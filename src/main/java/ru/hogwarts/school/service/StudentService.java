@@ -107,9 +107,25 @@ public class StudentService {
         return nameStudent;
     }
 
-    public Stream<Student> getListP() {
-        Stream<Student> listStudent= studentRepository.findAll().stream();
-       return listStudent;
+    public void getListP_() throws Exception {
+        System.out.println(studentRepository.findAll().stream().skip(0).limit(2).collect(Collectors.toList()));
+        new Thread(() -> {
+            System.out.println(studentRepository.findAll().stream().skip(2).limit(2).collect(Collectors.toList()));
+        }).start();
+        new Thread(() -> {
+            System.out.println(studentRepository.findAll().stream().skip(4).limit(2).collect(Collectors.toList()));
+        }).start();
     }
+
+    public synchronized void getListP_s() throws Exception {
+        System.out.println(studentRepository.findAll().stream().skip(0).limit(2).collect(Collectors.toList()));
+        new Thread(() -> {
+            System.out.println(studentRepository.findAll().stream().skip(2).limit(2).collect(Collectors.toList()));
+        }).start();
+        new Thread(() -> {
+            System.out.println(studentRepository.findAll().stream().skip(4).limit(2).collect(Collectors.toList()));
+        }).start();
+    }
+
 
 }

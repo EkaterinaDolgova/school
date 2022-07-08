@@ -85,24 +85,12 @@ public class StudentController {
 
     @GetMapping("/getListP")
     public void getListP() throws Exception {
-        System.out.println(studentService.getListP().skip(0).limit(2).collect(Collectors.toList()));
-        new Thread(() -> {
-            System.out.println(studentService.getListP().skip(2).limit(2).collect(Collectors.toList()));
-        }).start();
-        new Thread(() -> {
-            System.out.println(studentService.getListP().skip(4).limit(2).collect(Collectors.toList()));
-        }).start();
+        studentService.getListP_();
     }
 
     @GetMapping("/getListP1")
     public synchronized void getListP1() throws Exception {
-        System.out.println(studentService.getListP().skip(0).limit(2).collect(Collectors.toList()));
-        new Thread(() -> {
-            System.out.println(studentService.getListP().skip(2).limit(2).collect(Collectors.toList()));
-        }).start();
-        new Thread(() -> {
-            System.out.println(studentService.getListP().skip(4).limit(2).collect(Collectors.toList()));
-        }).start();
+        studentService.getListP_s();
     }
 
 }
